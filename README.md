@@ -50,6 +50,6 @@ npm run dev
 ```
 
 ## ⚖️ Copyright & License
-
+Free for everyone to use,edit or entirely change it.
 &copy; 2026 BWLabSP. 
 Created by [@souheyell](https://github.com/souheyell).
