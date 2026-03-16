@@ -48,6 +48,10 @@ npm install
 # Run the dev server
 npm run dev
 ```
+## 🔍 Preview 
+
+![image alt](https://github.com/souheyell/bwLabSP/blob/dec35e588579d5812817d2a9edfe3ec9da256764/preview.png)
+
 
 ## ⚖️ Copyright & License
 Free for everyone to use,edit or entirely change it.
