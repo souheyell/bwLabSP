@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BWLabSP: Professional Silkscreen RIP Engine</title>
+    <link rel="stylesheet" href="./style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Controls -->
+        <aside class="sidebar glass-panel">
+            <h1 class="brand">BWLabSP <span>RIP Engine</span></h1>
+            
+            <div class="upload-section">
+                <label for="upload-btn" class="upload-label">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 4V20M12 4L8 8M12 4L16 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Upload Image
+                </label>
+                <input type="file" id="upload-btn" accept="image/*" hidden>
+            </div>
+
+            <div class="controls-scroll">
+                <!-- Color Management & Tone -->
+                <div class="control-group">
+                    <h3>Tone Mapping & Separation</h3>
+                    <div class="slider-container">
+                        <label>Gray Gamma: <span id="gammaGray-val">1.0</span></label>
+                        <input type="range" id="gammaGray" min="0.1" max="3.0" step="0.1" value="1.0">
+                    </div>
+                    <div class="slider-container">
+                        <label>Highlight Threshold Low: <span id="tLow-val">0.6</span></label>
+                        <input type="range" id="tLow" min="0.0" max="1.0" step="0.01" value="0.6">
+                    </div>
+                    <div class="slider-container">
+                        <label>Highlight Threshold High: <span id="tHigh-val">0.9</span></label>
+                        <input type="range" id="tHigh" min="0.0" max="1.0" step="0.01" value="0.9">
+                    </div>
+                    <div class="slider-container">
+                        <label>Curve Contrast: <span id="contrast-val">10.0</span></label>
+                        <input type="range" id="contrast" min="1.0" max="20.0" step="0.5" value="10.0">
+                    </div>
+                    <div class="slider-container">
+                        <label>Curve Midtone: <span id="midtone-val">0.5</span></label>
+                        <input type="range" id="midtone" min="0.1" max="0.9" step="0.05" value="0.5">
+                    </div>
+                </div>
+
+                <!-- Ink Simulation -->
+                <div class="control-group">
+                    <h3>Kubelka-Munk Setup</h3>
+                    <div class="slider-container">
+                        <label>Gray Density: <span id="kmDensityGray-val">1.2</span></label>
+                        <input type="range" id="kmDensityGray" min="0.1" max="3.0" step="0.1" value="1.2">
+                    </div>
+                    <div class="slider-container">
+                        <label>White Density: <span id="kmDensityWhite-val">1.5</span></label>
+                        <input type="range" id="kmDensityWhite" min="0.1" max="3.0" step="0.1" value="1.5">
+                    </div>
+                    <div class="slider-container">
+                        <label>Substrate Reflectance: <span id="substrate-val">0.85</span></label>
+                        <input type="range" id="substrate" min="0.1" max="1.0" step="0.01" value="0.85">
+                    </div>
+                    <div class="slider-container">
+                        <label>Ink Gain (Dot Area): <span id="inkGain-val">1.05</span></label>
+                        <input type="range" id="inkGain" min="0.8" max="1.5" step="0.01" value="1.05">
+                    </div>
+                </div>
+
+                <!-- Halftone Generation -->
+                <div class="control-group">
+                    <h3>Halftone Screening</h3>
+                    <div class="slider-container">
+                        <label>Screen Type:</label>
+                        <select id="screenType" class="modern-select">
+                            <option value="am">AM Clustered Dot</option>
+                            <option value="fm">FM Stochastic Noise</option>
+                        </select>
+                    </div>
+                    <div class="slider-container">
+                        <label>Output DPI: <span id="dpi-val">300</span></label>
+                        <input type="range" id="dpi" min="150" max="1200" step="50" value="300">
+                    </div>
+                    <div class="slider-container">
+                        <label>Grid LPI: <span id="lpi-val">45</span></label>
+                        <input type="range" id="lpi" min="10" max="150" step="1" value="45">
+                    </div>
+                    <div class="slider-container">
+                        <label>Gray Angle (°): <span id="angleGray-val">45</span></label>
+                        <input type="range" id="angleGray" min="0" max="90" step="2.5" value="45">
+                    </div>
+                    <div class="slider-container">
+                        <label>White Angle (°): <span id="angleWhite-val">22.5</span></label>
+                        <input type="range" id="angleWhite" min="0" max="90" step="2.5" value="22.5">
+                    </div>
+                    <div class="slider-container">
+                        <label>Dot Ellipticity: <span id="dotEllipticity-val">1.25</span></label>
+                        <input type="range" id="dotEllipticity" min="1.0" max="2.0" step="0.05" value="1.25">
+                    </div>
+                </div>
+                
+                <div class="actions">
+                    <button id="btn-export-gray" class="btn primary">Export Gray Layer</button>
+                    <button id="btn-export-white" class="btn primary">Export White Layer</button>
+                </div>
+                
+                <div class="sidebar-footer">
+                    <p>&copy; 2026 BWLabSP.<br>Created by <a href="https://github.com/souheyell" target="_blank" class="github-link">souheyell</a>.</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Viewport -->
+        <main class="viewport">
+            <header class="viewport-header">
+                <h2>Production Preview Panels</h2>
+                <div class="view-toggles">
+                    <span class="active">RGB Original</span>
+                    <span class="active">Gray Separation</span>
+                    <span class="active">White Separation</span>
+                </div>
+            </header>
+            
+            <div class="canvas-grid">
+                <div class="canvas-wrapper original">
+                    <h4>sRGB Image</h4>
+                    <canvas id="canvas-original"></canvas>
+                </div>
+                <div class="canvas-wrapper gray-view">
+                    <h4>Gray Base Ink</h4>
+                    <canvas id="canvas-gray"></canvas>
+                </div>
+                <div class="canvas-wrapper white-view">
+                    <h4>White Highlight Ink</h4>
+                    <canvas id="canvas-white"></canvas>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Application Script -->
+    <script type="module" src="./src/main.js"></script>
+</body>
+</html>
